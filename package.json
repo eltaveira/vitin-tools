@@ -1,0 +1,43 @@
+{
+	"name": "vitin-tools",
+	"version": "1.0.2",
+	"description": "Small utilities to Node.js applications",
+	"type": "module",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": ["dist"],
+	"scripts": {
+		"build": "npx tsc --noEmit && npx tsup",
+		"test": "vitest run",
+		"fmt:check": "npx @biomejs/biome format .",
+		"fmt:fix": "npx @biomejs/biome format . --write",
+		"lint:check": "npx @biomejs/biome lint . --verbose",
+		"lint:fix": "npx @biomejs/biome lint . --apply",
+		"check": "npx @biomejs/biome check .",
+		"check:fix": "npx @biomejs/biome check --apply ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/eltaveira/vitin-tools.git"
+	},
+	"author": "Victor T. Rodrigues",
+	"license": "MIT",
+	"keywords": ["typescript", "utilities"],
+	"bugs": {
+		"url": "https://github.com/eltaveira/vitin-tools/issues"
+	},
+	"homepage": "https://github.com/eltaveira/vitin-tools#readme",
+	"devDependencies": {
+		"@biomejs/biome": "1.8.2",
+		"@types/node": "^20.14.8",
+		"tsup": "^8.1.0",
+		"tsx": "^4.15.7",
+		"typescript": "^5.5.2",
+		"vite-tsconfig-paths": "^4.3.2",
+		"vitest": "^1.6.0"
+	},
+	"engines": {
+		"node": ">=20.x"
+	}
+}

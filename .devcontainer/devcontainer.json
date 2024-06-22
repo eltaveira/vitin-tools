@@ -1,0 +1,160 @@
+{
+    "name": "vitin-tools",
+    "build": {
+      "context": "..",
+      "dockerfile": "Dockerfile"
+    },
+    "appPort": 8081,
+    "features": {
+      "ghcr.io/devcontainers/features/common-utils:latest": {
+        "installZsh": false,
+        "installOhMyZsh": true,
+        "installOhMyZshConfig": true,
+        "configureZshAsDefaultShell": false,
+        "upgradePackages": true,
+        "nonFreePackages": false,
+        "username": "automatic",
+        "userUid": "automatic",
+        "userGid": "automatic"
+      },
+      "ghcr.io/devcontainers-contrib/features/zsh-plugins:latest": {
+        "plugins": "git yarn npm ssh-agent zsh-autosuggestions zsh-syntax-highlighting copypath copyfile web-search colorize colored-man-pages docker",
+        "omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting",
+        "username": "root"
+      },
+      "ghcr.io/stuartleeks/dev-container-features/shell-history:latest": {},
+      "ghcr.io/wxw-matt/devcontainer-features/command_runner:latest": {
+        "command1": "echo '#command1#'",
+        "command2": "echo '#command2#'"
+      },
+      "ghcr.io/cirolosapio/devcontainers-features/alpine-docker-outside-of-docker:latest": {
+        "installDockerCompose": true
+      }
+    },
+    "initializeCommand": "echo '#initialize#' ; ls -lah ../..",
+    "onCreateCommand": "echo '#onCreate#' ; ls -lah ../..",
+    "updateContentCommand": "echo '#updateContent#' ; ls -lah ../..",
+    "postCreateCommand": "echo '#postCreate#' ; ls -lah ../..",
+    "postStartCommand": "echo '#postStart#' ; ls -lah ../..",
+    "postAttachCommand": "echo '#postAttach#' ; npm install -g npm@latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "bierner.github-markdown-preview", // github markdown preview
+          "biomejs.biome", // default formatter to (json, js, ts, tsx, jsx, cjs, mjs, cjs, json, jsonc)
+          "GitHub.copilot", // copilot AI
+          "GitHub.copilot-chat", // copilot AI chat
+          "streetsidesoftware.code-spell-checker", // spell checker
+          "streetsidesoftware.code-spell-checker-portuguese-brazilian", // spell checker pt-br
+          "miguelsolorio.symbols", // symbols icons to explorer
+          "miguelsolorio.fluent-icons", // fluent icons to vscode
+          "dracula-theme.theme-dracula", // dracula theme to vscode
+          "analytic-signal.preview-pdf", // preview pdf
+          "vscodevim.vim", // vs-code vim
+          "vintharas.learn-vim", // learn vim
+          "andenetalexander.vim-cheatsheet", // vim cheatsheet
+          "benshabatnoam.google-translate-ext", // google translate
+          "xabikos.JavaScriptSnippets", // javascript snippets
+          "ms-azuretools.vscode-docker", // vscode docker support
+          "meganrogge.template-string-converter", // template string converter
+          "vitest.explorer", // vitest - testing library - gui test runner
+          "usernamehw.errorlens", // editor error lens
+          "christian-kohler.path-intellisense", //custom path intellisense
+          "meganrogge.template-string-converter", // javascript template string converter
+          "YoavBls.pretty-ts-errors", // pretty typescript errors
+          "Gruntfuggly.todo-tree" // to-do tree
+        ],
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "/bin/zsh"
+            }
+          },
+          /* WORKBENCH CONFIG */
+          "workbench.iconTheme": "symbols", // tema de ícones do explorador de arquivos
+          "workbench.productIconTheme": "fluent-icons", // tema de ícones do vscode
+          "workbench.colorTheme": "Dracula", // tema do vscode no geral
+          "workbench.startupEditor": "newUntitledFile", // sempre abra um arquivo vazio quando abrir o vscode
+          "workbench.editor.labelFormat": "default", // adiciona o caminho ao lado do nome do arquivo na aba do editor
+          "workbench.editor.untitled.labelFormat": "name", // específica se o conteúdo do arquivo será usado como rótulo de arquivo sem título (untitled)
+          "workbench.activityBar.location": "default", // localização da barra de atividades
+          "workbench.layoutControl.enabled": true, // habilita o controle layout do vscode no canto direito superior
+          /* EDITOR CONFIG */
+          "editor.fontLigatures": true, // habilita as ligaduras de fonte
+          "editor.fontFamily": "JetBrains Mono", // configura a fonte padrão
+          "editor.lineHeight": 1.8, // define a altura da fonte
+          "editor.fontWeight": "300", // define o peso da fonte
+          "editor.rulers": [
+            80,
+            120
+          ],
+          "editor.fontSize": 14, // define o tamanho da fonte
+          "editor.formatOnSave": true, // formata o arquivo ao salvar
+          "editor.codeActionsOnSave": { // ações ao salvar o arquivo
+            "source.organizeImports": "explicit" // organiza as importações explicitamente
+          },
+          "editor.tabSize": 2, // tamanho do tab
+          "editor.minimap.enabled": false, // desativa o minimapa
+          "editor.minimap.renderCharacters": false, // (se minimapa ativo) renderiza caracteres no minimapa
+          "editor.detectIndentation": false, // detecta o tipo de indentação
+          "editor.inlineSuggest.enabled": true, // ?
+          "editor.colorDecorators": true, // ativa o realce de cores e color picker
+          "editor.unicodeHighlight.includeComments": true, // ?
+          "editor.accessibilitySupport": "off", // desativa suporte à acessibilidade
+          "editor.maxTokenizationLineLength": 200000, // define o tamanho máximo de tokenização de linha
+          "editor.semanticHighlighting.enabled": false, // desativa o realce semântico
+          "editor.scrollbar.horizontal": "auto", // scroll horizontal
+          "editor.scrollbar.vertical": "auto", // scroll vertical
+          /* BREADCRUMBS CONFIG */
+          "breadcrumbs.enabled": true, // ativa ou desativa a barra com o caminho do arquivo que fica abaixo da aba do arquivo
+          "breadcrumbs.icons": true,
+          "breadcrumbs.filePath": "on", // ativa ou desativa o caminho do arquivo
+          "breadcrumbs.symbolPath": "on", // ativa ou desativa o caminho dos símbolos no código 
+          /* EXPLORER CONFIG */
+          "explorer.compactFolders": false, // não empilha pastas no explorador
+          "explorer.sortOrder": "type", // ordem dos arquivos no explorador (por tipo)
+          /* WINDOW CONFIG */
+          "window.menuBarVisibility": "compact",
+          "window.commandCenter": true, // ativa/desativa central de comandos
+          /* GIT CONFIG */
+          "git.autofetch": true,
+          "git.verboseCommit": true,
+          "github.gitProtocol": "ssh",
+          /* ANOTHER CONFIG */
+          "telemetry.telemetryLevel": "off",
+          "path-intellisense.extensionOnImport": true,
+          "security.workspace.trust.untrustedFiles": "open",
+          "outline.icons": true,
+          /* EXTENSIONS */
+          // Google Translate (hancel.google-translate)
+          "googleTranslateExt.languages": [
+            "pt" // linguagem que será traduzida
+          ],
+          "googleTranslateExt.replaceText": false, // substitui o texto selecionado pela tradução
+          // Code Spell Checker
+          "cSpell.ignorePaths": [
+            "node_modules",
+            ".git"
+          ],
+          "cSpell.userWords": [ // palavras que não devem ser consideradas como erros
+            "indentação"
+          ],
+          "cSpell.files": ["src"],
+          "cSpell.language": "en,en-US,pt-BR",
+          // GitHub Markdown Preview
+          "markdown-preview-github-styles.colorTheme": "light",
+          "markdown-preview-github-styles.darkTheme": "light",
+          // Symbols Icon Theme
+          "symbols.hidesExplorerArrows": true,
+          // Default Formatter
+          "[json]": {
+            "editor.defaultFormatter": "biomejs.biome"
+          },
+          "[jsonc]": {
+            "editor.defaultFormatter": "biomejs.biome"
+          }
+        }
+      }
+    }
+  }
