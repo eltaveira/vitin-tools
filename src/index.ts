@@ -2,6 +2,12 @@ import nodeCrypto from 'node:crypto';
 import nodeFs from 'node:fs';
 import nodePath from 'node:path';
 
+function createFolderIfNotExists(folderPath: string) {
+  if (!nodeFs.existsSync(folderPath)) {
+    nodeFs.mkdirSync(folderPath);
+  }
+}
+
 /**
  * Retorna a data e hora atual no formato 'YYYY-MM-DD_HHMMSSmmm'.
  * @returns {string} Data e hora formatadas.
@@ -56,16 +62,15 @@ const DEFAULT_LOG_PATH: string = nodePath.join(
  * @param {string} [content=''] - Conteúdo a ser escrito no log.
  */
 function writeToLog(fileName: string, ext: string, content: string = '') {
-  // - [ ] sanatize fileName
+  //TODO: sanatize fileName to remove extensions and invalid characters
   const logFile = `${getDateTimeNow()}_${getPartOfUuid()}_${fileName}.${ext}`;
   const absoluteLogFilePath = nodePath.join(DEFAULT_LOG_PATH, logFile);
-
+  createFolderIfNotExists(DEFAULT_LOG_PATH);
   nodeFs.appendFileSync(absoluteLogFilePath, `${content}\n`, {
     flag: 'a+',
     encoding: 'utf8'
   });
 }
-
 
 /**
  * Converte um objeto para uma string JSON de forma insegura (sem tratamento de exceções).

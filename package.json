@@ -1,6 +1,6 @@
 {
 	"name": "vitin-tools",
-	"version": "1.0.5",
+	"version": "1.0.7",
 	"description": "Small utilities to Node.js applications",
 	"type": "module",
 	"main": "./dist/index.js",
