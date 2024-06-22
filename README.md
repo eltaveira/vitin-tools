@@ -1,157 +1,142 @@
-# Vitin Tools
+# vitin-tools
 
-Este módulo fornece um conjunto de funções utilitárias para manipulação de datas, geração de IDs únicos, pausas assíncronas, escrita em logs e manipulação segura de strings JSON. Abaixo está uma descrição detalhada de cada função disponível.
+`vitin-tools` é uma biblioteca utilitária para Node.js, escrita em TypeScript, que fornece funções para gerar IDs únicos, pausar a execução, manipular logs e strings, entre outras.
+
+## Instalação
+
+Para instalar a biblioteca, use npm:
+
+```sh
+npm install vitin-tools
+```
+
+## Importação
+
+Importe as funções que você precisa:
+
+```ts
+import { 
+  getDateTimeNow, 
+  getPartOfUuid, 
+  getUniqueId, 
+  pause, 
+  writeToLog, 
+  unsafeStringfy, 
+  safeStringfy, 
+  getSizeOfString 
+} from 'vitin-tools';
+```
 
 ## Funções
 
 ### `getDateTimeNow(): string`
 
-Retorna a data e hora atuais no formato `YYYY-MM-DD_HHMMSSmmm`.
+Retorna a data e hora atual no formato `YYYY-MM-DD_HHMMSSmmm`.
 
-#### Exemplo de uso
+**Exemplo de uso:**
 
 ```ts
 const dateTimeNow = getDateTimeNow();
-console.log(dateTimeNow); // Exemplo de saída: "2024-06-22_141530123"
+console.log(dateTimeNow); // Exemplo de saída: 2024-06-22_153045123
 ```
 
-### `getPartOfUUID(): string`
+### `getPartOfUuid(): string`
 
-Gera uma parte do UUID (primeira parte antes do primeiro hífen).
+Gera uma parte de um UUID (Universally Unique Identifier).
 
-#### Exemplo de uso
+**Exemplo de uso:**
 
 ```ts
-const uuidPart = getPartOfUUID();
-console.log(uuidPart); // Exemplo de saída: "e4b0c"
+const partOfUuid = getPartOfUuid();
+console.log(partOfUuid); // Exemplo de saída: 'a1b2c3d4'
 ```
 
-### `getUniqueID(): string`
+### `getUniqueId(): string`
 
-Gera um ID único combinando a data e hora atuais com uma parte do UUID.
+Gera um ID único combinando a data e hora atual com uma parte de um UUID.
 
-#### Exemplo de uso
+**Exemplo de uso:**
 
 ```ts
-const uniqueID = getUniqueID();
-console.log(uniqueID); // Exemplo de saída: "2024-06-22_141530123_e4b0c"
+const uniqueId = getUniqueId();
+console.log(uniqueId); // Exemplo de saída: 2024-06-22_153045123_a1b2c3d4
 ```
 
 ### `pause(baseMs: number): Promise<void>`
 
-Retorna uma promessa que resolve após uma pausa assíncrona. A pausa é baseada em um valor aleatório acrescido do valor base fornecido.
+Pausa a execução por um período aleatório de tempo, baseado em um valor base.
 
-#### Parâmetros
+**Parâmetros:**
+- `baseMs` (number): O tempo base em milissegundos.
 
-- `baseMs` (number): O valor base de milissegundos para a pausa.
-
-#### Exemplo de uso
+**Exemplo de uso:**
 
 ```ts
-await pause(2000);
-console.log('Pausa concluída');
+await pause(1000);
+console.log('A pausa terminou.');
 ```
 
-### `writeToLog(fileName: string, content = '', ext: string): void`
+### `writeToLog(fileName: string, ext: string, content = ''): void`
 
-Escreve o conteúdo fornecido em um arquivo de log. O nome do arquivo é gerado combinando a data e hora atuais, uma parte do UUID, e o nome do arquivo fornecido, com a extensão especificada.
+Escreve uma mensagem em um arquivo de log, com nome gerado a partir da data e hora atual, uma parte de um UUID e o nome do arquivo especificado.
 
-#### Parâmetros
+**Parâmetros:**
+- `fileName` (string): O nome base do arquivo de log.
+- `ext` (string): A extensão do arquivo de log.
+- `content` (string, opcional): O conteúdo a ser escrito no log.
 
-- `fileName` (string): O nome base do arquivo.
-- `content` (string, opcional): O conteúdo a ser escrito no log. Padrão é uma string vazia.
-- `ext` (string): A extensão do arquivo.
-
-#### Exemplo de uso
+**Exemplo de uso:**
 
 ```ts
-writeToLog('app-log', 'Este é um log de exemplo', 'txt');
+writeToLog('error', 'txt', 'Ocorreu um erro.');
 ```
 
 ### `unsafeStringfy(obj: unknown): string`
 
-Converte um objeto em uma string JSON sem tratamento de erros.
+Converte um objeto para uma string JSON sem capturar exceções.
 
-#### Parâmetros
+**Parâmetros:**
+- `obj` (unknown): O objeto a ser convertido.
 
-- `obj` (unknown): O objeto a ser convertido em JSON.
-
-#### Exemplo de uso
+**Exemplo de uso:**
 
 ```ts
-const jsonString = unsafeStringfy({ chave: 'valor' });
-console.log(jsonString); // Exemplo de saída: '{"chave":"valor"}'
+const jsonString = unsafeStringfy({ key: 'value' });
+console.log(jsonString); // Exemplo de saída: '{"key":"value"}'
 ```
 
 ### `safeStringfy(obj: unknown): string | null`
 
-Converte um objeto em uma string JSON com tratamento de erros. Retorna `null` em caso de erro.
+Converte um objeto para uma string JSON, retornando `null` se ocorrer uma exceção.
 
-#### Parâmetros
+**Parâmetros:**
+- `obj` (unknown): O objeto a ser convertido.
 
-- `obj` (unknown): O objeto a ser convertido em JSON.
-
-#### Exemplo de uso
+**Exemplo de uso:**
 
 ```ts
-const safeJsonString = safeStringfy({ chave: 'valor' });
-console.log(safeJsonString); // Exemplo de saída: '{"chave":"valor"}'
+const jsonString = safeStringfy({ key: 'value' });
+console.log(jsonString); // Exemplo de saída: '{"key":"value"}'
 ```
 
 ### `getSizeOfString(str: string): number`
 
-Retorna o tamanho, em bytes, de uma string.
+Retorna o tamanho de uma string em bytes.
 
-#### Parâmetros
+**Parâmetros:**
+- `str` (string): A string cujo tamanho será calculado.
 
-- `str` (string): A string para medir o tamanho.
-
-#### Exemplo de uso
-
-```ts
-const size = getSizeOfString('Olá Mundo');
-console.log(size); // Exemplo de saída: 9
-```
-
-## Configurações Padrão
-
-### `DEFAULT_WAIT_BASE`
-
-Constante usada na função `pause` como valor base de milissegundos.
-
-### `DEFAULT_LOG_PATH`
-
-Caminho padrão para armazenamento dos arquivos de log. É resolvido como `./logs` no diretório atual do processo.
-
-## Exportações
-
-As funções e constantes descritas acima são exportadas para uso em outros módulos:
+**Exemplo de uso:**
 
 ```ts
-import {
-  getDateTimeNow,
-  getPartOfUUID,
-  getSizeOfString,
-  getUniqueID,
-  pause,
-  safeStringfy,
-  unsafeStringfy,
-  writeToLog
-} from 'vitin-tools';
+const size = getSizeOfString('Hello, world!');
+console.log(size); // Exemplo de saída: 13
 ```
 
-## Instalação
+## Contribuição
 
-Certifique-se de ter o Node.js instalado. Salve o código fornecido em um arquivo `.ts` e importe conforme necessário em seu projeto.
-
-## Contribuições
-
-Sinta-se à vontade para abrir issues e pull requests para melhorias e correções.
+Sinta-se à vontade para contribuir com este projeto abrindo issues ou pull requests no [repositório do GitHub](https://github.com/seu-usuario/vitin-tools).
 
 ## Licença
 
-Este projeto está licenciado sob os termos da [MIT License](LICENSE).
-
----
-
-Este README fornece uma visão geral das funções utilitárias disponíveis no módulo. Cada função foi projetada para facilitar tarefas comuns no desenvolvimento com Node.js.
+Este projeto está licenciado sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
